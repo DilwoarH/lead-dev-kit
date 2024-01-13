@@ -4,6 +4,7 @@ import moment from "moment"
 import { filter } from "lodash"
 import Image from "next/image"
 import { CheckIcon } from "@heroicons/react/24/outline"
+import Stats from "../Stats/Stats"
 
 type Repo = {
   owner: string
@@ -64,7 +65,7 @@ export default async function GithubPullRequests() {
       })
 
       const PRs = filter(data, (data) => {
-        return data.user?.type === "User"
+        return data.user?.type !== "Bot"
       })
 
       const countByBot = data.length - PRs.length
@@ -93,6 +94,31 @@ export default async function GithubPullRequests() {
 
   return (
     <>
+      <div className="my-7">
+        <Stats
+          title="Pull Request Overview"
+          stats={[
+            {
+              name: "Open",
+              stat: openList
+                .reduce((total, repo) => total + repo.count, 0)
+                .toString(),
+            },
+            {
+              name: "Open by Bot",
+              stat: [...openList, ...okList]
+                .reduce((total, repo) => total + repo.countByBot, 0)
+                .toString(),
+            },
+            {
+              name: "Total open",
+              stat: [...openList, ...okList]
+                .reduce((total, repo) => total + repo.totalCount, 0)
+                .toString(),
+            },
+          ]}
+        />
+      </div>
       <h2 className="text-xl font-bold tracking-tight text-gray-900 mb-6">
         Open Pull Requests
       </h2>
@@ -100,20 +126,20 @@ export default async function GithubPullRequests() {
         return (
           <section
             key={repo.repo}
-            className="mb-4 p-4 border shadow rounded-md"
+            className="mb-4 p-4 border shadow-sm rounded-lg bg-white"
           >
             <div className="sm:flex">
               <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
                 {repo.data.length ? (
                   <div
-                    className={`mr-4 w-36 inline-flex items-center rounded-md  p-7 text-7xl font-medium ring-1 ring-inset bg-${repo.badgeColour}-50 text-${repo.badgeColour}-700 ring-${repo.badgeColour}-600/10`}
+                    className={`mr-4 w-36 inline-flex items-center rounded-lg  p-7 text-7xl font-medium ring-1 ring-inset bg-${repo.badgeColour}-50 text-${repo.badgeColour}-700 ring-${repo.badgeColour}-600/10`}
                   >
                     <span className="mx-auto">{repo.data.length}</span>
                   </div>
                 ) : null}
               </div>
               <div className="mt-1">
-                <h4 className="text-lg font-bold">
+                <h3 className="text-lg font-bold">
                   <Link
                     href={repo.titleUrl}
                     className="cursor-pointer"
@@ -124,7 +150,7 @@ export default async function GithubPullRequests() {
                   {repo.countByBot
                     ? ` - (${repo.countByBot} PRs raised by bots)`
                     : null}
-                </h4>
+                </h3>
                 <ul className="list-disc list-inside">
                   {repo.data.map((pr: PullRequest) => (
                     <li key={pr.id}>
@@ -162,14 +188,14 @@ export default async function GithubPullRequests() {
         return (
           <section
             key={repo.repo}
-            className="mb-4 p-4 border shadow rounded-md"
+            className="mb-4 p-4 border rounded-lg bg-white"
           >
             <div className="sm:flex">
               <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-                <CheckIcon className="h-5 w-5 mt-2" />
+                <CheckIcon className="h-7 w-7 mt-1 text-green-600 bg-green-50 border p-1 rounded-lg" />
               </div>
-              <div className="mt-1">
-                <h4 className="text-lg font-bold">
+              <div className="mt-1 self-center">
+                <p>
                   <Link
                     href={repo.titleUrl}
                     className="cursor-pointer hover:underline"
@@ -180,31 +206,7 @@ export default async function GithubPullRequests() {
                   {repo.countByBot
                     ? ` - (${repo.countByBot} PRs raised by bots)`
                     : null}
-                </h4>
-                <ul className="list-disc list-inside">
-                  {repo.data.map((pr: PullRequest) => (
-                    <li key={pr.id}>
-                      <Link
-                        href={pr.html_url}
-                        className="underline"
-                        target="_blank"
-                      >
-                        {pr.title} (#{pr.number})
-                      </Link>{" "}
-                      - <strong>{moment(pr.updated_at).fromNow()}</strong> -
-                      {pr.user?.login}{" "}
-                      {pr.user?.avatar_url ? (
-                        <Image
-                          height={10}
-                          width={10}
-                          src={pr.user?.avatar_url}
-                          alt={pr.user?.login ?? ""}
-                          className="h-5 w-5 inline-block"
-                        />
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
+                </p>
               </div>
             </div>
           </section>

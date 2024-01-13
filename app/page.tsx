@@ -2,7 +2,7 @@ import GithubPullRequests from "@/components/GithubPullRequests/GithubPullReques
 
 export default function Home() {
   return (
-    <main className="p-4">
+    <main className="p-4 bg-gray-50">
       <div className="mb-10">
         <p className="text-base font-semibold leading-7 text-blue-600">
           LeadDevKit
