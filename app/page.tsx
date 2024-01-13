@@ -5,10 +5,10 @@ export default function Home() {
     <main className="p-4">
       <div className="mb-10">
         <p className="text-base font-semibold leading-7 text-blue-600">
-          Your favourite tools as a leader
+          LeadDevKit
         </p>
         <h1 className="mb-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Lead Dev Kit
+          Development Team Overview
         </h1>
       </div>
 

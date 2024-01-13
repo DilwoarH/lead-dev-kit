@@ -1,5 +1,6 @@
 import { Octokit } from "@octokit/rest"
 import Link from "next/link"
+import moment from "moment"
 
 type repo = {
   owner: string
@@ -46,16 +47,18 @@ export default async function GithubPullRequests() {
             key={repo.repo}
             className="mb-4 p-4 border shadow rounded-md"
           >
-            <div className="flex flex-1">
-              <div
-                className={`mr-4 inline-flex items-center rounded-md  p-7 text-7xl font-medium ring-1 ring-inset bg-${badgeColour}-50 text-${badgeColour}-700 ring-${badgeColour}-600/10`}
-              >
-                {pullRequests.data.length}
+            <div className="sm:flex">
+              <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+                <div
+                  className={`mr-4 inline-flex items-center rounded-md  p-7 text-7xl font-medium ring-1 ring-inset bg-${badgeColour}-50 text-${badgeColour}-700 ring-${badgeColour}-600/10`}
+                >
+                  {pullRequests.data.length}
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold mb-3">
+              <div className="mt-1">
+                <h4 className="text-lg font-bold">
                   {repo.owner}/{repo.repo}
-                </h3>
+                </h4>
                 {pullRequests.data.length ? (
                   <ul className="list-disc list-inside">
                     {pullRequests.data.map((pr) => (
@@ -65,8 +68,10 @@ export default async function GithubPullRequests() {
                           className="underline"
                           target="_blank"
                         >
-                          {pr.title}
-                        </Link>
+                          {pr.title} (#{pr.number})
+                        </Link>{" "}
+                        - <strong>{moment(pr.updated_at).fromNow()}</strong> (
+                        {pr.user?.type === "Bot" ? "🤖" : pr.user?.login})
                       </li>
                     ))}
                   </ul>
