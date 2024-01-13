@@ -5,7 +5,7 @@ export default function Home() {
     <main className="p-4 bg-gray-50">
       <div className="mb-10">
         <p className="text-base font-semibold leading-7 text-blue-600">
-          LeadDevKit
+          {process.env.COMPANY_NAME ?? "LeadDevKit"}
         </p>
         <h1 className="mb-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Development Team Overview
