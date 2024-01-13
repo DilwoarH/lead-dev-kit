@@ -5,7 +5,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Lead Dev Kit",
+  title: `${process.env.COMPANY_NAME ?? "Home"} | LeadDevKit`,
   description: "Monitor everything about your team",
 }
 
