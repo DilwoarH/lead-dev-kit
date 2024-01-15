@@ -1,5 +1,7 @@
 import GithubPullRequests from "@/components/GithubPullRequests/GithubPullRequests"
 
+export const revalidate = 60 // revalidate every minute
+
 export default function Home() {
   return (
     <main className="p-4 bg-gray-50">
