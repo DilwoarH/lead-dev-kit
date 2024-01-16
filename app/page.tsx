@@ -1,4 +1,5 @@
 import GithubPullRequests from "@/components/GithubPullRequests/GithubPullRequests"
+import moment from "moment"
 
 export const revalidate = 60 // revalidate every minute
 
@@ -15,6 +16,9 @@ export default function Home() {
       </div>
 
       <GithubPullRequests />
+      <p className="text-sm my-5 text-right">
+        Page last updated: {moment().format("ddd DD MMM YYYY hh:mm a")}
+      </p>
     </main>
   )
 }
