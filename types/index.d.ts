@@ -26,3 +26,8 @@ export type RepoWithPullRequest = {
   badgeColour: string
   data: any
 }
+
+export type RepoWithContributions = {
+  repo: Repo
+  data: any
+}

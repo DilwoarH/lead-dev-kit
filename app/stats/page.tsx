@@ -21,7 +21,7 @@ export default function Home() {
         </p>
       </div>
 
-      <GithubPullRequests />
+      <GithubContributions />
     </main>
   )
 }
