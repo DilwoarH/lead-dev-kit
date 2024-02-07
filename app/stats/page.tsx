@@ -3,7 +3,7 @@ import moment from "moment"
 
 export const revalidate = 60 // revalidate every minute
 
-export default function Home() {
+export default function Stats() {
   return (
     <main className="p-4 bg-gray-50">
       <div className="mb-10 flex justify-between">
