@@ -34,7 +34,7 @@ export default async function GithubPullRequests() {
       })
 
       const PRs = filter(data, (data) => {
-        return data.user?.type !== "Bot"
+        return data.user?.type !== "Bot" && data.draft === false
       })
 
       const countByBot = data.length - PRs.length

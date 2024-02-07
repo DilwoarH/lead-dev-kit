@@ -1,5 +1,4 @@
 import GithubContributions from "@/components/GithubContributions/GithubContributions"
-import GithubPullRequests from "@/components/GithubPullRequests/GithubPullRequests"
 import moment from "moment"
 
 export const revalidate = 60 // revalidate every minute
