@@ -35,7 +35,7 @@ export default async function GithubContributions() {
 
   let totalContributions: any[] = []
 
-  contributions.forEach((c) => {
+  contributions?.forEach((c) => {
     totalContributions.push(...c.data)
   })
 
