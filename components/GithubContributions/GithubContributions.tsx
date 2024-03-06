@@ -19,7 +19,7 @@ export default async function GithubContributions() {
     }
   })
 
-  const contributions = await Promise.all(
+  const contributions: RepoWithContributions[] = await Promise.all(
     repos.map(async (repo: Repo): Promise<RepoWithContributions> => {
       const { data } = await octokit.repos.getContributorsStats({
         ...repo,
@@ -35,7 +35,7 @@ export default async function GithubContributions() {
 
   let totalContributions: any[] = []
 
-  contributions?.forEach((c) => {
+  contributions.forEach((c) => {
     totalContributions.push(...c.data)
   })
 
